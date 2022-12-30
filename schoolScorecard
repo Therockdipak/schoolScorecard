@@ -5,14 +5,12 @@
 pragma solidity >=0.7.0 < 0.9.0;
 
 struct Score {
-
         string subjectName;
          uint score;
-}
+        }
  
 struct Student {
-
-         string firstName;
+        string firstName;
          string lastName;
          uint age;
 }
@@ -23,19 +21,25 @@ contract Scorecard {
     mapping(uint=>Student) public students;
     mapping(uint=>Score) public scores;    
     
-    constructor(){
+    constructor() {
         teacher = msg.sender;
     }
-    modifier onlyTeacher(){
+    
+    modifier onlyTeacher()  {
          require(teacher==msg.sender,"You are not the teacher");
          _;
     }
-    function addStudent(uint rollNo, string memory firstName, string memory lastName, uint age) public onlyTeacher  {   
+    
+    
+    function addStudent(uint rollNo, string memory firstName, string memory lastName, uint age) public onlyTeacher  { 
+    
         Student memory student = Student(firstName,lastName,age);
         students[rollNo]=student;
         emit addedStudent(student);
     }
+    
     function addScore(uint rollNo, string memory subjectName, uint score) public onlyTeacher {
+    
         Score memory newscore = Score(subjectName,score);
         scores[rollNo]=newscore;     
     }
